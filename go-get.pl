@@ -71,8 +71,12 @@ unless (defined $pkg) {
 
 if (defined $url and defined $pkg) {
 
+  # Use the first existing directory found in GOPATH
+  my ($gopath) = grep { -d } split(/:/, $ENV{GOPATH} || `go env GOPATH`);
+  die "error: no valid GOPATH directory found\n" unless defined $gopath;
+
   # Use catdir to convert the directory separator for the current system
-  $pkg = catdir(split /\//, "$ENV{GOPATH}/src/$pkg");
+  $pkg = catdir(split /\//, "$gopath/src/$pkg");
 
   # Ensure we are grabbing from a git repository URL
   $url .= ".git" unless $url =~ /\.git$/;
