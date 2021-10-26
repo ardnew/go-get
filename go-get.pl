@@ -99,7 +99,7 @@ if (defined $url and defined $pkg) {
 
     # Call "go install" to build and install the given cmd if it exists
     if (-d catdir($pkg, $cmd)) {
-      $sys .= sprintf "go install -v \"%s\"; ", $cmd);
+      $sys .= sprintf "go install -v \"%s\"; ", $cmd;
     } else {
       printf STDERR "warning: go command not found in repo: %s\n", $cmd;
     }
